@@ -1,0 +1,24 @@
+---
+title: "🔬 GGIR mMarch Test on One ActiGraph File"
+output: html_notebook
+---
+Input files need to be exported CSVs.
+Set the input and output directories and timezone here:
+```{r}
+datadir="~/Documents/cmi/actigraphy"
+outputdir="~/Documents/cmi/actigraphy_outputs"
+timezone="America/New_York"
+```
+
+
+
+```{r}
+library(GGIR)
+g.shell.GGIR(
+  studyname="HealthyBrainNetwork",
+  datadir=datadir,
+  outputdir=outputdir,
+  mode=c(1,2,3,4),
+  desiredtz=timezone)
+```
+
