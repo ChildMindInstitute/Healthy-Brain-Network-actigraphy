@@ -5,14 +5,35 @@ output: html_notebook
 Input files need to be exported CSVs.
 Set the input and output directories and timezone here:
 ```{r}
-datadir="~/Documents/cmi/actigraphy"
+rawdatadir="~/Documents/cmi/actigraphy"
+datadir="~/Documents/cmi/actigraphy_converted"
 outputdir="~/Documents/cmi/actigraphy_outputs"
 timezone="America/New_York"
 ```
 
+[:link: Parse actigraph accelerometer data (.gt3x) • read.gt3x](https://thlfi.github.io/read.gt3x/)
+
+````{r}
+library(read.gt3x)
+rawfiles <- list.files(
+  path = rawdatadir,
+  pattern = "*.gt3x",
+  full.names = TRUE
+)
+lapply(rawfiles, function(x) {
+  write.csv2(
+    ras.data.frame(ead.gt3x(x),)
+    sub(
+      '.gt3x',
+      '.csv',
+      sub(path.expand(rawdatadir), path.expand(datadir), x)
+    )
+  )
+})
+``
 
 
-```{r}
+``{r}
 library(GGIR)
 g.shell.GGIR(
   studyname="HealthyBrainNetwork",
