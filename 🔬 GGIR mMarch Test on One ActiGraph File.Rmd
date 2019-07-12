@@ -11,35 +11,69 @@ outputdir="~/Documents/cmi/actigraphy_outputs"
 timezone="America/New_York"
 ```
 
-[:link: Parse actigraph accelerometer data (.gt3x) • read.gt3x](https://thlfi.github.io/read.gt3x/)
+requires:
+- GGIR
+- zoo
 
-````{r}
-library(read.gt3x)
-rawfiles <- list.files(
-  path = rawdatadir,
-  pattern = "*.gt3x",
-  full.names = TRUE
-)
-lapply(rawfiles, function(x) {
-  write.csv2(
-    ras.data.frame(ead.gt3x(x),)
-    sub(
-      '.gt3x',
-      '.csv',
-      sub(path.expand(rawdatadir), path.expand(datadir), x)
-    )
-  )
-})
-``
-
-
-``{r}
+```{r}
 library(GGIR)
 g.shell.GGIR(
   studyname="HealthyBrainNetwork",
   datadir=datadir,
   outputdir=outputdir,
   mode=c(1,2,3,4),
-  desiredtz=timezone)
+  idloc=1,
+  print.filename=TRUE,
+  storefolderstructure=FALSE,
+  desiredtz=timezone,
+  do.enmo=TRUE,
+  do.anglez=TRUE,
+  do.hfen=FALSE,
+  windowsizes=c(5,900,36000),
+  do.cal=TRUE,
+  chunksize=1,
+  printsummary=TRUE,
+  strategy=1,
+  hrs.del.start=0,
+  hrs.del.end=0,
+  maxdur=15,
+  includedaycrit=16,
+  winhr=c(5,10),
+  epochvalues2csv=TRUE,
+  L2M5window=c(0,24),
+  M5L5res=10,
+  qlevels=c(c(1380/1440),c(1410/1440)),
+  qwindow=c(0,24),
+  ilevels=c(seq(0,400,by=50),8000),
+  mvpathreshold=c(125),
+  do.imp=TRUE,
+  timethreshold=c(5),
+  anglethreshold=5,
+  ignorenonwear=TRUE,
+  excludefirstlast=FALSE,
+  includenightcrit=16,
+  def.noc.sleep=c(1),
+  outliers.only=FALSE,
+  relyonsleeplog=FALSE,
+  sleeplogidnum=FALSE,
+  do.visual=TRUE,
+  criterror=0,
+  nnights=14,
+  threshold.lig = c(30,40,50),
+  threshold.mod = c(100,120,125),
+  threshold.vig = c(400,500),
+  boutcriter = 0.8,
+  boutcriter.in = 0.9,
+  boutcriter.lig = 0.8,
+  boutcriter.mvpa = 0.8,
+  boutdur.in = c(10,20,30),
+  boutdur.lig = c(1,5, 10),
+  boutdur.mvpa = c(1,5,10),
+  timewindow = c("WW"),
+  do.report=c(2,4,5),
+  visualreport=TRUE,
+  dofirstpage = TRUE,
+  viewingwindow=1
+)
 ```
 
